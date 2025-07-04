@@ -141,19 +141,22 @@ class Operations{
     // }
 
     rlQuestion(operation){
-        rl.question('Enter first number:', (num1)=>{
-            
-            if (isNaN(num1)) {
-                console.log(`${num1} is not a number. Enter valid numbers only `)
-                return;
-            }
-            rl.question('Enter second number:', (num2)=>{
-                const number1 = parseInt(num1)
-                const number2 = parseInt(num2)
-                console.log(operation(number1, number2))
-                rl.close()
+        function recursiveQuestion (){
+            rl.question('Enter first number:', (num1)=>{
+                rl.question('Enter second number:', (num2)=>{
+                    const number1 = parseInt(num1)
+                    const number2 = parseInt(num2)
+                    if (isNaN(number1) || isNaN(number2)) {
+                        console.log(`${number1} or ${number2} is not a number. Enter valid numbers only `)
+                        recursiveQuestion();
+                        return;
+                    }
+                    console.log(operation(number1, number2))
+                    rl.close()
             })
         })
+        }
+        return recursiveQuestion();
     }
 
     // addition(){
