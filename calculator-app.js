@@ -88,7 +88,7 @@ class Calculator{
     }
 
     square_root(firstNumber, secondNumber){
-        secondNumber = 1
+        secondNumber = 1 // equating second user input to 1.
         return Math.sqrt(firstNumber) * 1;
     }
 
@@ -128,6 +128,9 @@ class Menu{
         console.log(msg)
     }
 
+    /**
+     * This displayOption method shows all available arithmetic operations with the corresponding user input number.
+     */
     displayOptions(){
         console.log(
         `
@@ -188,8 +191,10 @@ class Operations{
      * This is User Input method helps determine the operations type to be performed
      */
     userInput(){
+        // Menu
         this.menu.greet(`\n Hello! Welcome to my CLI Calculator App`);
         this.menu.displayOptions()
+        // User input for arithmetic operations with validations
         rl.on('line', (input)=>{
             if(parseInt(input) === 1){
                 this.rlQuestion(this.calculate.add)
