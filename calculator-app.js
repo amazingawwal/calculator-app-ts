@@ -4,7 +4,7 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     historySize: 10,
-    history: ['first', 'second']
+    history: []
 })
 
 
@@ -83,6 +83,19 @@ class Calculator{
         // return this.result;
     };
 
+    power(firstNumber, secondNumber){
+        return firstNumber ** secondNumber;
+    }
+
+    square_root(firstNumber, secondNumber){
+        secondNumber = 1
+        return Math.sqrt(firstNumber) * 1;
+    }
+
+    percentage(firstNumber, secondNumber){
+        return (firstNumber / secondNumber * 100);
+    }
+
 }
 
 // const calculate = new Calculator();
@@ -107,24 +120,27 @@ class Calculator{
  * - display option method that shows different available arithmetic operations
  */
 class Menu{
-    constructor(){
-
-    }
-
-    greet(){
-        console.log(`\n Hello! Welcome to my CLI Calculator App`)
+    /**
+     * This is a message logger method. It displays greetings and other info
+     * @param {string} msg 
+     */
+    greet(msg){
+        console.log(msg)
     }
 
     displayOptions(){
         console.log(
         `
         Select your preferred operation:
+        0. Exit
         1. Addition 
         2. Subtraction
         3. Multiplication
         4. Division
-        5. Exit
-        Enter choice (1-5): `
+        5. Power
+        6. Square root
+        7. Percentage
+        Enter choice (0-7): `
         )
     }
 };
@@ -172,7 +188,7 @@ class Operations{
      * This is User Input method helps determine the operations type to be performed
      */
     userInput(){
-        this.menu.greet();
+        this.menu.greet(`\n Hello! Welcome to my CLI Calculator App`);
         this.menu.displayOptions()
         rl.on('line', (input)=>{
             if(parseInt(input) === 1){
@@ -183,7 +199,18 @@ class Operations{
                 this.rlQuestion(this.calculate.multiply)
             }else if (parseInt(input) === 4){
                 this.rlQuestion(this.calculate.divide)
-            }else if (parseInt(input) === 5){
+            }else if (parseInt(input)=== 5){
+                this.rlQuestion(this.calculate.power)
+            }
+            else if(parseInt(input)=== 6){
+                //Show info that only 1st input is used for the operation
+                this.menu.greet(`Hello! For validation purpose, you have to enter 2 inputs but only the first input is used for the Sqrt operation.`); 
+                this.rlQuestion(this.calculate.square_root)
+            }
+            else if(parseInt(input)=== 7){
+                this.rlQuestion(this.calculate.percentage)
+            }
+            else if (parseInt(input) === 0){
                 rl.close();
             }else{
                 console.log(`Enter a valid input from 1-5`)
@@ -193,7 +220,7 @@ class Operations{
 
 };
 
-console.log(rl.history);
+// console.log(rl.history);
 const menu = new Menu();
 const calculate = new Calculator();
 const performOperation = new Operations(calculate, menu);
