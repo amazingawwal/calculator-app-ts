@@ -1,6 +1,6 @@
-const readline = require('node:readline');
+const read_line = require('node:readline');
 
-const rl = readline.createInterface({
+const rdl = read_line.createInterface({
     input: process.stdin,
     output: process.stdout,
     historySize: 10,
@@ -192,8 +192,8 @@ class Operations {
     rlQuestion(operation:Calculate){
         //recursive function for input validation and to allow user retry after invalid input
         function recursiveQuestion (){
-            rl.question('Enter first number:', (num1:string)=>{
-                rl.question('Enter second number:', (num2:string)=>{
+            rdl.question('Enter first number:', (num1:string)=>{
+                rdl.question('Enter second number:', (num2:string)=>{
                     const number1 = parseInt(num1);
                     const number2 = parseInt(num2);
                     // const number1 = parseFloat(num1)
@@ -204,7 +204,7 @@ class Operations {
                         return;
                     }
                     console.log(operation(number1, number2))
-                    rl.close()
+                    rdl.close()
             })
         })
         }
@@ -221,7 +221,7 @@ class Operations {
         this.menu.greet(`\n Hello! Welcome to my CLI Calculator App`);
         this.menu.displayOptions()
         // User input for arithmetic operations with validations
-        rl.on('line', (input: string)=>{
+        rdl.on('line', (input: string)=>{
             if(parseInt(input) === 1){
                 this.rlQuestion(this.calculate.add)
             }else if (parseInt(input) === 2){
@@ -242,7 +242,7 @@ class Operations {
                 this.rlQuestion(this.calculate.percentage)
             }
             else if (parseInt(input) === 0){
-                rl.close();
+                rdl.close();
             }else{
                 console.log(`Enter a valid input from 1-5`)
             }
