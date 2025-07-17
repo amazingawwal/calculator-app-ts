@@ -2,8 +2,11 @@
   "name": "calculator-app",
   "version": "1.0.0",
   "description": "calculator-app",
-  "main": "index.js",
+  "main": "calculator-app.ts",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/calculator-app.js",
+    "dev": "ts-node src/calculator-app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/amazingawwal/calculator-app/issues"
   },
-  "homepage": "https://github.com/amazingawwal/calculator-app#readme"
+  "homepage": "https://github.com/amazingawwal/calculator-app#readme",
+  "devDependencies": {
+    "@types/node": "^24.0.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
 }

@@ -8,6 +8,22 @@ const rl = readline.createInterface({
 })
 
 
+
+
+interface T_Calculate{
+    add(firstNumber: number, secondNumber: number) : number;
+    subtract(firstNumber: number, secondNumber: number) : number;
+    divide(firstNumber: number, secondNumber: number) : number;
+    multiply(firstNumber: number, secondNumber: number) : number;
+    power(firstNumber: number, secondNumber: number) : number;
+    percentage(firstNumber: number, secondNumber: number) : number;
+    square_root(firstNumber: number, secondNumber: number) : number
+}
+
+interface Calculate{
+    (firstNumber: number, secondNumber: number) : number;
+}
+
 /**
  * STEP 2
  * This is a Calculator App that does basic arithmetic operations:
@@ -16,10 +32,9 @@ const rl = readline.createInterface({
  * Multiplication
  * Division
  */ 
+class Calculator implements T_Calculate{
 
-class Calculator{
-
-    result;
+    // result: number;
 
     /**
      * This method performs a basic Addition operation:
@@ -28,7 +43,7 @@ class Calculator{
      * @param {number} secondNumber 
      * @returns number
      */
-    add(firstNumber, secondNumber){
+    add(firstNumber: number, secondNumber: number): number{
         return firstNumber + secondNumber;
         // this.result = firstNumber + secondNumber;
         // return this.result;
@@ -42,7 +57,7 @@ class Calculator{
      * @param {number} secondNumber 
      * @returns number
      */
-    subtract(firstNumber, secondNumber){
+    subtract(firstNumber: number, secondNumber: number): number{
         return firstNumber - secondNumber;
         // this.result = firstNumber - secondNumber;
         // return this.result;
@@ -55,7 +70,7 @@ class Calculator{
      * @param {number} secondNumber 
      * @returns number
      */
-    multiply(firstNumber, secondNumber){
+    multiply(firstNumber: number, secondNumber: number): number{
         return firstNumber * secondNumber;
         // this.result = firstNumber * secondNumber;
         // return this.result;
@@ -70,29 +85,29 @@ class Calculator{
      * @param {number} secondNumber 
      * @returns number
      */
-    divide(firstNumber, secondNumber){
+    divide(firstNumber: number, secondNumber: number): number {
         try {
             if(secondNumber === 0) throw new Error(`You can't divide by 0. Enter a number other than 0`);
             else{
                 return firstNumber / secondNumber;
             }
-        } catch (error) {
-            return `${error.message}`
+        } catch (error: any) {
+            return error.message
         }
         // this.result = firstNumber / secondNumber;
         // return this.result;
     };
 
-    power(firstNumber, secondNumber){
+    power(firstNumber: number, secondNumber: number): number{
         return firstNumber ** secondNumber;
     }
 
-    square_root(firstNumber, secondNumber){
+    square_root(firstNumber: number, secondNumber: number): number{
         secondNumber = 1 // equating second user input to 1.
         return Math.sqrt(firstNumber) * 1;
     }
 
-    percentage(firstNumber, secondNumber){
+    percentage(firstNumber: number, secondNumber: number): number{
         return (firstNumber / secondNumber * 100);
     }
 
@@ -112,19 +127,22 @@ class Calculator{
  * shows 'Available Options'
  * Main Menu Loop Implementation
  */
-
+interface T_menu {
+    greet(msg:string): void;
+    displayOptions(): void;
+}
 
 /**
  * This menu class houses 2 methods:
  * - greet method that logs the initial greeting
  * - display option method that shows different available arithmetic operations
  */
-class Menu{
+class Menu implements T_menu{
     /**
      * This is a message logger method. It displays greetings and other info
      * @param {string} msg 
      */
-    greet(msg){
+    greet(msg: string){
         console.log(msg)
     }
 
@@ -148,6 +166,10 @@ class Menu{
     }
 };
 
+interface T_Operations{
+    menu: T_menu
+}
+
 /**
  * This class Operations help perform arithmetic operations.
  * It has 2 dependencies (dependent classes), Menu and Calculator.
@@ -155,8 +177,10 @@ class Menu{
  * - rlQuestion method which servers as a utility for serving different arithmetic operation
  * - userInput method which handles user input that determines choice of operations
  */
-class Operations{
-    constructor(calculate, menu){
+class Operations {
+    private menu: T_menu;
+    private calculate: T_Calculate
+    constructor(calculate: T_Calculate, menu: T_menu){
         this.menu = menu
         this.calculate = calculate
     }
@@ -165,13 +189,15 @@ class Operations{
      * This is a Readline(Question) reusable method to help keep the code DRY
      * @param {function} operation 
      */
-    rlQuestion(operation){
+    rlQuestion(operation:Calculate){
         //recursive function for input validation and to allow user retry after invalid input
         function recursiveQuestion (){
-            rl.question('Enter first number:', (num1)=>{
-                rl.question('Enter second number:', (num2)=>{
-                    const number1 = parseFloat(num1)
-                    const number2 = parseFloat(num2)
+            rl.question('Enter first number:', (num1:string)=>{
+                rl.question('Enter second number:', (num2:string)=>{
+                    const number1 = parseInt(num1);
+                    const number2 = parseInt(num2);
+                    // const number1 = parseFloat(num1)
+                    // const number2 = parseFloat(num2)
                     if (isNaN(number1) || isNaN(number2)) {
                         console.log(`${number1} or ${number2} is not a number. Enter valid numbers only `)
                         recursiveQuestion();
@@ -195,7 +221,7 @@ class Operations{
         this.menu.greet(`\n Hello! Welcome to my CLI Calculator App`);
         this.menu.displayOptions()
         // User input for arithmetic operations with validations
-        rl.on('line', (input)=>{
+        rl.on('line', (input: string)=>{
             if(parseInt(input) === 1){
                 this.rlQuestion(this.calculate.add)
             }else if (parseInt(input) === 2){
