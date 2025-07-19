@@ -1,20 +1,21 @@
 # CLI calculator-app
 
-A simple and interactive command-line application built with Node.js, using the built-in `readline` module for handling user input.
+A simple and interactive command-line calculator application built with **TypeScript** and **Node.js**, using the built-in `readline` module for handling user input.
 
 ## Features
 
-- Interactive user prompts
+- Written in **TypeScript** for type safety and maintainability
+- Uses **interfaces** to define calculator operations
+- Uses **enums** for operation choices
+- Interactive CLI prompts via `readline`
 - Real-time input/output handling
-- Performs arithmetic operations by taking the following input options from the user
-        0. Exit
+- Supports the following operations:
         1. Addition 
         2. Subtraction
         3. Multiplication
         4. Division
-        5. Power
-        6. Square root
-        7. Percentage.
+        5. Exit
+
 - Easy to extend 
 
 ## Getting Started
@@ -34,14 +35,20 @@ A simple and interactive command-line application built with Node.js, using the 
    ```npm install
 
 3. Run the App:
-    ```
-    node calculator-app.js
+### Development
+    ``` npm run dev ```
+
+### Production:
+```npm run build ```
+```npm start ```
 
 ### Project Structure
 CALCULATOR-APP/
-├── calculator-app.js       
-├── .gitignore      
-├── License
+├── src/
+│   ├── calculator-app.ts                 
+├── dist/                        
+├── tsconfig.json                
+├── .gitignore
 ├── package.json
 └── README.md
 
