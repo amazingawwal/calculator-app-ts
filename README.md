@@ -27,16 +27,16 @@ A simple and interactive command-line calculator application built with **TypeSc
 ### App Installation
 
 1. Clone the repository:
-   ```bash
+   ```bash ```
    git clone https://github.com/amazingawwal/calculator-app.git
    cd calculator-app
 
-2. Install dependencies(none for now):
-   ```npm install
+2. Install dependencies:
+   ```npm install ```
 
 3. Run the App:
 ### Development
-    ``` npm run dev ```
+    ```npm run dev ```
 
 ### Production:
 ```npm run build ```
