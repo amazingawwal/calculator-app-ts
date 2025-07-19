@@ -1,8 +1,20 @@
 import * as readline from 'node:readline/promises';
 
+interface CalculationHistory {
+    operation: string;
+    operand1: number;
+    operand2: number;
+    result: number;
+}
+
+let historyStore: CalculationHistory[] = [];
+
 const rl: readline.Interface = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
+    history: historyStore.map(entry=>{
+        return ``
+    })
 });
 
 type Operations = {
