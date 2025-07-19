@@ -36,7 +36,7 @@ A simple and interactive command-line calculator application built with **TypeSc
 
 3. Run the App:
 ### Development
-    ```npm run dev ```
+```npm run dev ```
 
 ### Production:
 ```npm run build ```
