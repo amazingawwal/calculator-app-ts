@@ -1,4 +1,3 @@
-import { type } from 'node:os';
 import * as readline from 'node:readline/promises';
 
 const rl: readline.Interface = readline.createInterface({
@@ -6,18 +5,22 @@ const rl: readline.Interface = readline.createInterface({
     output: process.stdout
 });
 
-
-
-function add(a:number, b:number): number {
-    return a + b;
+type Operations = {
+    (firstNumber: number, secondNumber: number) : number;
 }
 
+// function add(a:number, b:number): number {
+//     return a + b;
+// }
+
+const add: Operations = (a:number, b:number): number => a+b;
+
 function subtract(a: number, b: number): number {
-    return a + b;
+    return a - b;
 };
 
 function multiply(a: number, b: number): number {
-    return a + b;
+    return a * b;
 };
 
 function divide(a: number, b: number): number {
@@ -49,13 +52,10 @@ function showOperations(): void {
 5. Exit`)
 };
 
-function mainMenuLoop() {
-    
-}
-
-
-
-
+function mainMenuLoop(): void {
+    displayWelcomeMessage();
+    showOperations();
+};
 
 // async function promptForOperation(): Promise<string> {
 //   return new Promise((resolve) => {
@@ -91,11 +91,10 @@ async function promptHandler(): Promise<string>{
         return new Promise((resolve) => {
             rl.once('line', (input: string) => {
                 resolve(input);
-                rl.close()
             });
         });
     };
-    const prompt = promptForOperation()
+    const prompt = await promptForOperation()
     return prompt
 };
 
@@ -103,38 +102,73 @@ async function promptHandler(): Promise<string>{
 
 async function getNumberInput(prompt: string): Promise<number>  {
     const result = parseFloat(prompt)
-    console.log('This is result',result)
     return result
 };
 
 
-function validateNumber(input: string): number | null {
-    if (typeof input !== 'string'){
-        return null
-    };
-    const newInput = parseFloat(input);
-    return newInput;
-};
+// function validateNumber(input: string): number | null {
+//     const newInput = parseFloat(input);
+//     return isNaN(newInput)? null : newInput
+// };
 
+// function validateNumber(input: string): number | null {
+//     const newInput = parseFloat(input);
+//     return isNaN(newInput)? null : newInput
+// };
 
-async function operations() {
-    
-    // const number1 = await rl.question('Enter your first number');
-    // const firstNumber = validateNumber(number1);
-
-    // const number2 = await rl.question('Enter your second number');
-    // const secondNumber =validateNumber(number2);
-
-    const prompt  = await promptHandler()
-    const promptNumber = await getNumberInput(prompt);
-
-
-    if (promptNumber === 1){
-        console.log('one');
-    }else{
-        console.log('Two')
-    }
-    
+function isValidNumber(value: string): boolean {
+    const newInput = parseFloat(value);
+    return isNaN(newInput);
 }
 
-operations();
+
+async function operations(calculate: Operations) {
+
+    const number1 = await rl.question('Enter your first number:');
+    const number2 = await rl.question('Enter your second number:');
+
+    if(isValidNumber(number1) || isValidNumber(number2)){
+        console.error(`${number1} and ${number2} are not valid numbers. Enter valid numbers`);
+        rl.close()
+    }{
+        const firstNumber = await getNumberInput(number1);
+        const secondNumber = await getNumberInput(number2);
+        console.log(calculate(firstNumber, secondNumber));
+        rl.close();
+    }
+
+}
+
+
+
+async function calculate(): Promise<void> {
+
+    mainMenuLoop();
+
+    const prompt  = await promptHandler();
+    const promptNumber = await getNumberInput(prompt);
+    switch (promptNumber) {
+        case 1:
+            operations(add)
+            break;
+        case 2:
+            operations(subtract)
+            break;
+        case 3:
+            operations(multiply)
+            break;
+        case 4:
+            operations(divide)
+            break;
+        case 5:
+            rl.close()
+            break;
+        default:
+            console.log('Enter a number from 1-5 for your preferred operation');
+    }
+}
+
+calculate();
+
+
+
