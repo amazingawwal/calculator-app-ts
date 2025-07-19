@@ -1,19 +1,20 @@
 import * as readline from 'node:readline/promises';
 
-interface CalculationHistory {
-    operation: string;
-    operand1: number;
-    operand2: number;
-    result: number;
-}
+// interface CalculationHistory {
+//     operation: string;
+//     operand1: number;
+//     operand2: number;
+//     result: number;
+// }
 
-let historyStore: CalculationHistory[] = [];
+// let historyStore: CalculationHistory[] = [];
+let historyStore: number[] = [];
 
 const rl: readline.Interface = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     history: historyStore.map(entry=>{
-        return ``
+        return `${entry}`
     })
 });
 
@@ -69,34 +70,6 @@ function mainMenuLoop(): void {
     showOperations();
 };
 
-// async function promptForOperation(): Promise<string> {
-//   return new Promise((resolve) => {
-//     rl.once('line', (input: string) => {
-//         resolve(input);
-//         rl.close()
-//     });
-//   });
-// }
-
-// async function name () {
-//     const name = await promptForOperation()
-//     console.log('output is',name);
-    
-// }
-
-
-
-// async function getNumberInput(prompt: string): Promise<number>  {
-//     const input = await rl.question('Enter first number:')
-//     return parseFloat(input)
-// }
-
-// getNumberInput(promptForOperation())
-
-// async function validateNumber(input: string): Promise<number | null> {
-//     return value;
-// };
-
 async function promptHandler(): Promise<string>{
 
     async function promptForOperation(): Promise<string> {
@@ -123,10 +96,6 @@ async function getNumberInput(prompt: string): Promise<number>  {
 //     return isNaN(newInput)? null : newInput
 // };
 
-// function validateNumber(input: string): number | null {
-//     const newInput = parseFloat(input);
-//     return isNaN(newInput)? null : newInput
-// };
 
 function isValidNumber(value: string): boolean {
     const newInput = parseFloat(value);
@@ -141,17 +110,21 @@ async function operations(calculate: Operations) {
 
     if(isValidNumber(number1) || isValidNumber(number2)){
         console.error(`${number1} and ${number2} are not valid numbers. Enter valid numbers`);
-        rl.close()
+        rl.close;
     }{
         const firstNumber = await getNumberInput(number1);
         const secondNumber = await getNumberInput(number2);
-        console.log(calculate(firstNumber, secondNumber));
+        const result = calculate(firstNumber, secondNumber)
+        historyStore.push(result)
+        console.log(result);
         rl.close();
     }
 
 }
 
-
+// function exitGracefully(): void {
+//     rl.close
+// };
 
 async function calculate(): Promise<void> {
 
@@ -177,6 +150,7 @@ async function calculate(): Promise<void> {
             break;
         default:
             console.log('Enter a number from 1-5 for your preferred operation');
+            calculate();
     }
 }
 
