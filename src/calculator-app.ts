@@ -1,5 +1,15 @@
 import * as readline from 'node:readline/promises';
 
+let historyStore: CalculationHistory[] = [];
+const rl: readline.Interface = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    history: historyStore.map(entry=>{
+        return `${entry}`
+    })
+});
+
+// TYPES
 enum OperationChoice {
     ADD = 1,
     SUBTRACT = 2,
@@ -21,37 +31,46 @@ interface CalculationHistory {
     result: number;
 }
 
-let historyStore: CalculationHistory[] = [];
-
-
-const rl: readline.Interface = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    history: historyStore.map(entry=>{
-        return `${entry}`
-    })
-});
-
 type Operations = {
     (firstNumber: number, secondNumber: number) : number;
 }
+
+// OPERATIONS
 
 // function add(a:number, b:number): number {
 //     return a + b;
 // }
 
+/**
+ * Performs addition of 2 numbers
+ * @param a - first number
+ * @param b - second number
+ * @returns  the sum of a and b
+ */
 const add: CalculatorOperation = {
     name: 'Addition',
     symbol: '+',
     operation: (a:number, b:number): number => a+b
 }
 
+/**
+ * Performs subtraction of 2 numbers
+ * @param a - first number
+ * @param b - second number
+ * @returns  the subtraction of a and b
+ */
 const subtract: CalculatorOperation = {
     name: 'Subtraction',
     symbol: '-',
     operation: (a:number, b:number): number => a-b
 }
 
+/**
+ * Performs multiplication of 2 numbers
+ * @param a - first number
+ * @param b - second number
+ * @returns  the multiplication of a and b
+ */
 const multiply: CalculatorOperation = {
     name: 'Multiplication',
     symbol: '*',
@@ -62,6 +81,12 @@ const multiply: CalculatorOperation = {
 // };
 
 
+/**
+ * Performs division of 2 numbers
+ * @param a - first number
+ * @param b - second number
+ * @returns  the division of a and b
+ */
 const divide: CalculatorOperation = {
     name: 'Division',
     symbol: '/',
@@ -89,14 +114,19 @@ const divide: CalculatorOperation = {
 //         }
 // };
 
-
 // const result = divide(2,0);
 // console.log(result)
 
+/**
+ * Function that displays greetings
+ */
 function displayWelcomeMessage(): void {
     console.log('Welcome to Node.js Calculator!')
 }
 
+/**
+ * Function that displays Arithmetic Operations
+ */
 function showOperations(): void {
     console.log(`Select operation:
 1. Add
@@ -106,11 +136,18 @@ function showOperations(): void {
 5. Exit`)
 };
 
+/**
+ * Function that displays Main Menu - Greetings and Operations
+ */
 function mainMenuLoop(): void {
     displayWelcomeMessage();
     showOperations();
 };
 
+/**
+ * This is a Readline function that helps get users prompt for preferred operation 
+ * @returns string - prompt for preferred operation
+ */
 async function promptHandler(): Promise<string>{
 
     async function promptForOperation(): Promise<string> {
@@ -125,25 +162,35 @@ async function promptHandler(): Promise<string>{
 };
 
 
-
+/**
+ * This is a helper function that helps convert prompt from string to number
+ * @param prompt string
+ * @returns number
+ */
 async function getNumberInput(prompt: string): Promise<number>  {
     const result = parseFloat(prompt)
     return result
 };
 
-
+/**
+ * This is a helper function that checks for validity
+ * @param value string
+ * @returns boolean
+ */
 // function validateNumber(input: string): number | null {
 //     const newInput = parseFloat(input);
 //     return isNaN(newInput)? null : newInput
 // };
-
-
 function isValidNumber(value: string): boolean {
     const newInput = parseFloat(value);
     return isNaN(newInput);
 }
 
-
+/**
+ * Operation function that takes 2 operands from the user and performs arithmetics ops
+ * @param calculate function
+ * @returns number
+ */
 async function operations(calculate: Operations): Promise<OperationChoice> {
 
     const number1 = await rl.question('Enter your first number:');
@@ -166,6 +213,11 @@ async function operations(calculate: Operations): Promise<OperationChoice> {
 //     rl.close
 // };
 
+
+/**
+ * Calculate function that acts like a Calculator
+ * @returns function , number
+ */
 async function calculate(): Promise<OperationChoice> {
 
     mainMenuLoop();
@@ -195,6 +247,7 @@ async function calculate(): Promise<OperationChoice> {
             // break;
         default:
             console.log('Enter a number from 1-5 for your preferred operation');
+            // recursive function call
             return calculate();
     }
 }
