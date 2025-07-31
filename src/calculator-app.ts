@@ -96,9 +96,14 @@ const divide: CalculatorOperation = {
       else {
         return a / b;
       }
-    } catch (error: any) {
-      return error.message;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error('An unknown error occurred:', error);
+      }
     }
+    return 0;
   },
 };
 // function divide(a: number, b: number): number {
