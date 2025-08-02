@@ -25,6 +25,9 @@ jobs:
   lint-and-format:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        
       - name: set up node
         uses: actions/setup-node@v2
         with:
