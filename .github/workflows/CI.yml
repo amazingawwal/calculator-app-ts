@@ -22,9 +22,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-  # job:
-  #   steps:
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #       name: run Husky
-  #       run: npm run prepare
+  lint-and-format:
+    steps:
+      runs-on: ubuntu-latest
+      steps:
+        name: run Husky
+        run: npm run prepare
