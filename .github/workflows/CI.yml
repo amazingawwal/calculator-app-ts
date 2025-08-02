@@ -23,8 +23,7 @@ jobs:
         run: npm run lint
 
   lint-and-format:
-
     runs-on: ubuntu-latest
     steps:
-      name: run Husky
-      run: npm run prepare
+      - name: run Husky
+        run: npm run prepare
