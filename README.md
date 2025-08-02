@@ -9,14 +9,9 @@ A simple and interactive command-line calculator application built with **TypeSc
 - Uses **enums** for operation choices
 - Interactive CLI prompts via `readline`
 - Real-time input/output handling
-- Supports the following operations:
-        1. Addition 
-        2. Subtraction
-        3. Multiplication
-        4. Division
-        5. Exit
+- Supports the following operations: 1. Addition 2. Subtraction 3. Multiplication 4. Division 5. Exit
 
-- Easy to extend 
+- Easy to extend
 
 ## Getting Started
 
@@ -27,34 +22,37 @@ A simple and interactive command-line calculator application built with **TypeSc
 ### App Installation
 
 1. Clone the repository:
-   ```bash ```
+   `bash `
    git clone https://github.com/amazingawwal/calculator-app.git
    cd calculator-app
 
 2. Install dependencies:
-   ```npm install ```
+   `npm install `
 
 3. Run the App:
+
 ### Development
-```npm run dev ```
+
+`npm run dev `
 
 ### Production:
-```npm run build ```
-```npm start ```
+
+`npm run build `
+`npm start `
 
 ### Project Structure
+
 CALCULATOR-APP/
 ├── src/
-│   ├── calculator-app.ts                 
-├── dist/                        
-├── tsconfig.json                
+│ ├── calculator-app.ts  
+├── dist/  
+├── tsconfig.json  
 ├── .gitignore
 ├── package.json
 └── README.md
 
-
 ### License
-This project is licensed under the MIT License. See LICENSE for details.
 
+This project is licensed under the MIT License. See LICENSE for details.
 
 Made with ❤️ by yours truly [@amazingawwal](https://github.com/amazingawwal/calculator-app.git)
