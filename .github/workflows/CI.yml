@@ -25,5 +25,13 @@ jobs:
   lint-and-format:
     runs-on: ubuntu-latest
     steps:
+      - name: set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: install dependencies
+        run: npm install
+
       - name: run Husky
         run: npm run prepare
