@@ -1,13 +1,9 @@
 name: Enforcing Coding Styles
 on:
   push:
-    branches: 
-      -Main
-       Enforcing-Coding-Styles
+    branches: [main, Enforcing-Coding-Styles]
   pull_request:
-    branches: 
-      -Main
-       Enforcing-Coding-Styles
+    branches: [main, Enforcing-Coding-Styles]
 jobs:
   lint:
     runs-on: ubuntu-latest
