@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main, Enforcing-Coding-Styles]
 jobs:
-#  Lint with ESLinter
+  #  Lint with ESLinter
   setup:
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-#  Lint with ESLinter and Format with Prettier using Husky on pre-commit
+  #  Lint with ESLinter and Format with Prettier using Husky on pre-commit
   lint-and-format:
     runs-on: ubuntu-latest
     steps:
