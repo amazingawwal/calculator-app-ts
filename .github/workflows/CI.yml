@@ -1,19 +1,21 @@
 name: Enforcing Coding Styles
 on:
   push:
-    branches: -Main
-      Enforcing-Coding-Styles
+    branches: 
+      -Main
+       Enforcing-Coding-Styles
   pull_request:
-    branches: -Main
-      Enforcing-Coding-Styles
+    branches: 
+      -Main
+       Enforcing-Coding-Styles
 jobs:
-  job:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: set up node.jobs
+      - name: set up node
         uses: actions/setup-node@v2
         with:
           node-version: '22'
