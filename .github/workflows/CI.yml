@@ -24,8 +24,7 @@ jobs:
 
   job:
     steps:
-      setup:
-        runs-on: windows-latest
-        steps:
-          name: run Husky
-          run: npm run prepare
+      runs-on: ubuntu-latest
+      steps:
+        name: run Husky
+        run: npm run prepare
