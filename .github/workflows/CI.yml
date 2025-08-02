@@ -18,14 +18,14 @@ jobs:
 
       - name: install dependencies
         run: npm install
-        
+
       - name: Run ESLint
         run: npm run lint
 
   job:
     steps:
-      runs-on: windows-latest
-      steps:
-        name: run Husky
-        run: npm run prepare
-      
+      setup:
+        runs-on: windows-latest
+        steps:
+          name: run Husky
+          run: npm run prepare
